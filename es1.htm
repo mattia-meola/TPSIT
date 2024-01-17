@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saluto</title>
+</head>
+<body>
+    <button onclick="saluta()">Premi per la sorpresa</button>
+    <p id="messaggioSaluto"></p>
+
+    <script>
+        function saluta() {
+            var messaggioSaluto = document.getElementById("messaggioSaluto");
+            messaggioSaluto.innerHTML = "Buongiorno a tutti!, come state?";
+        }
+    </script>
+</body>
+</html>
