@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 12px;
+            height: 12px;
+            padding: 2px;
+            border: 1px solid black;
+        }
+    </style>
+    <title>Tabella con Quadrati</title>
+</head>
+<body>
+
+<table>
+    <?php
+    $numero_quadrati = 100;
+    $margin = 2;
+
+    for ($i = 1; $i <= $numero_quadrati; $i++) {
+        // Determina il colore dello sfondo in base alla parità del numero
+        $colore_sfondo = ($i % 2 == 0) ? 'lightgray' : 'darkgray';
+
+        // Stampa il quadrato
+        echo "<td style='background-color: $colore_sfondo;'>";
+        echo "<div style='width: 100%; height: 100%; background-color: $colore_sfondo; margin: ${margin}px;'></div>";
+        echo "</td>";
+
+        // Vai a capo ogni 10 quadrati
+        if ($i % 10 == 0) {
+            echo "</tr><tr>";
+        }
+    }
+    ?>
+</table>
+
+</body>
+</html>
