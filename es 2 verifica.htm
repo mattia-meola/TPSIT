@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOTTONI CON SOMMA</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    button {
+        padding: 20px 20px;
+        font-size: 20px;
+        margin: 10px;
+       
+    }
+    #output {
+        font-size: 15px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<button id="bottone1">aumenta di 2</button>
+<button id="bottone2">aumenta di 3</button>
+<button id="bottone3">aumenta di 7</button>
+
+<div id="output"></div>
+
+<script>
+    var num=0;
+
+   
+    function incrementaNum(aumento) {
+        num+=aumento;
+        document.getElementById("output").innerText="Numero attuale: "+numero;
+    }
+
+   
+    document.getElementById("button1").addEventListener("click", function() {
+        incrementaNum(2);
+    });
+
+    document.getElementById("button2").addEventListener("click", function() {
+        incrementaNum(3);
+    });
+
+    document.getElementById("button3").addEventListener("click", function() {
+        incrementaNum(7);
+    });
+</script>
+
+</body>
+</html>
