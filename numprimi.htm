@@ -1,0 +1,36 @@
+<!DOCTYPEhtml>
+<html>
+
+<testa>
+<meta charset="utf-8">
+<meta name="viewport" content="width=larghezza-dispositivo">
+<title>Numeri primi fino a 10000</title>
+</testa>
+
+<corpo>
+<button id="bottone" onclick="trovaNumeriPrimi()">Trova numeri primi</button>
+<div id="risultato"></div>
+
+<copione>
+funzione trovaNumeriPrimi() {
+let risultatoDiv = document.getElementById('risultato');
+risultatoDiv.innerHTML = ""; // Pulisci il contenuto precedente
+
+for (let numero = 2; numero <= 10000; numero++) {
+Sia divisori = 0;
+for (let i = 2; i <= Math.sqrt(numero); i++) {
+if (numero % i == 0) {
+divisori++;
+rottura; // Se abbiamo trovato un divisore, non è primo
+}
+}
+if (divisori == 0) {
+risultatoDiv.innerHTML += numero + " è un numero primo<br>";
+}
+}
+}
+</script>
+
+</corpo>
+
+</html>
