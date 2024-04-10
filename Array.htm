@@ -86,24 +86,28 @@
         document.getElementById("out").innerHTML = output;
       }
 
-      function stampaNumeriFattori(numero) {
+    // Funzione per mettere in un array solo i fattori di un numero
+      function stampaNumeriFattori() {
+        let numero = parseInt(prompt("Inserisci un numero:"));
         let fattori = [];
-        for(let i = 1; i <= numero; i++) {
-          if(numero % i === 0) {
+        for (let i = 1; i <= numero; i++) {
+          if (numero % i === 0) {
             fattori.push(i);
           }
         }
-        document.getElementById("out").innerHTML = "Fattori di " + numero + ": " + fattori.join(", ");
+        document.getElementById("outFattori").innerHTML = fattori.join(" ");
       }
 
-      function stampaNumeriFattoriEsclusoUno(numero) {
-        let fattori = [];
-        for(let i = 2; i <= numero; i++) {
-          if(numero % i === 0) {
-            fattori.push(i);
+      // Funzione per ottenere il numero di fattori escluso 1
+      function numeroFattori() {
+        let numero = parseInt(prompt("Inserisci un numero:"));
+        let count = 0;
+        for (let i = 2; i <= numero; i++) {
+          if (numero % i === 0) {
+            count++;
           }
         }
-        document.getElementById("out").innerHTML = "Numero di fattori escluso 1 di " + numero + ": " + fattori.length;
+        document.getElementById("outNumeroFattori").innerHTML = count;
       }
     </script>
   </body>
