@@ -1,58 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <style>
-        .quadratoPink{
-                background-color: rgb(245, 209, 215);
-                height: 20px;
-                width: 20px;
-                border: 1px solid black;
-                margin:5px;
-                padding:5px;
-        }
-        .quadratoBlue
-        {      background-color: rgb(51, 152, 246);
-                height: 20px;
-                width: 20px;
-                border: 1px solid black;
-                margin:5px;
-                padding:5px;
-        }
-
-    </style>
-
-</head>
-<body>
-
-
-    <script>
-
-        //realizzare 100 quadrati con i div con colori di sfondo blu e
-        // rosa con all'interno dei numeri casuali da 0 a 100
-        // se pari lo sfondo e rosa altrimenti blu
-        let nc;
-        for(let i=0;i<100;i++)
-        {
-          nc=Math.floor((Math.random()*100))
-         if (nc%2==0)
-         {
-            document.write("<div class='quadratoPink'>"
-        +nc+
-    "</div>   ")
-            }
-            else
-            {
-                document.write("<div class='quadratoBlue'>"
-        +nc+
-    "</div>   ")
-
-            }        
-
+<!DOCTYPEhtml>
+<html lang="it">
+<testa>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=larghezza-dispositivo, scala-iniziale=1.0">
+<titolo></titolo>
+<stile>
+.quadrato {
+altezza: 20px;
+larghezza: 20px;
+bordo: 1px nero pieno;
+margine:5px;
+imbottitura: 5px;
 }
+</stile>
+</testa>
+<corpo>
 
-    </script>
-</body>
+<copione>
+// definisce un array di colori
+colori costanti = [
+{categoria: 'pari', colore: 'rgb(245, 209, 215)' },
+{categoria: 'dispari', colore: 'rgb(51, 152, 246)' },
+{categoria: 'ultipleOf3', colore: 'rgb(246, 152, 51)' },
+{categoria: 'ultipleOf5', colore: 'rgb(152, 246, 51)' },
+{categoria: 'ultipleOf10', colore: 'rgb(51, 246, 246)' }
+];
+
+//realizzare 100 quadrati con i div con colori di sfondo blu e
+// rosa con all'interno dei numeri casuali da 0 a 100
+// se pari lo sfondo e rosa altrimenti blu
+lascia nc;
+for(sia i=0;i<100;i++)
+{
+nc=Math.floor((Math.random()*100))
+lascia che il colore;
+se (nc % 2 === 0) {
+colore = colori[0].colore;
+} altrimenti se (nc % 3 === 0) {
+colore = colori[2].colore;
+} altrimenti se (nc % 5 === 0) {
+colore = colori[3].colore;
+} altrimenti se (nc % 10 === 0) {
+colore = colori[4].colore;
+} altro {
+colore = colori[1].colore;
+}
+document.write("<div class='quadrato' style=' background-color: " + color + ";'>"
++nc+
+"</div> ")
+}
+</script>
+</corpo>
 </html>
+
