@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        .quadratoPink{
+                background-color: rgb(245, 209, 215);
+                height: 20px;
+                width: 20px;
+                border: 1px solid black;
+                margin:5px;
+                padding:5px;
+        }
+        .quadratoBlue
+        {      background-color: rgb(51, 152, 246);
+                height: 20px;
+                width: 20px;
+                border: 1px solid black;
+                margin:5px;
+                padding:5px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+    <script>
+
+        //realizzare 100 quadrati con i div con colori di sfondo blu e
+        // rosa con all'interno dei numeri casuali da 0 a 100
+        // se pari lo sfondo e rosa altrimenti blu
+        let nc;
+        for(let i=0;i<100;i++)
+        {
+          nc=Math.floor((Math.random()*100))
+         if (nc%2==0)
+         {
+            document.write("<div class='quadratoPink'>"
+        +nc+
+    "</div>   ")
+            }
+            else
+            {
+                document.write("<div class='quadratoBlue'>"
+        +nc+
+    "</div>   ")
+
+            }        
+
+}
+
+    </script>
+</body>
+</html>
