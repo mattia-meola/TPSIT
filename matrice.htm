@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrice 8x8 in JavaScript</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 20px;
+        }
+        td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Matrice 8x8 in JavaScript</h1>
+    <div id="matrix-container"></div>
+
+    <script>
+        // Funzione per creare una matrice 8x8
+        function createMatrix(rows, cols) {
+            let matrix = [];
+            for (let i = 0; i < rows; i++) {
+                let row = [];
+                for (let j = 0; j < cols; j++) {
+                    row.push(i + j);  // Puoi cambiare questa logica per popolare la matrice con altri valori
+                }
+                matrix.push(row);
+            }
+            return matrix;
+        }
+
+        // Funzione per visualizzare la matrice come tabella HTML
+        function displayMatrix(matrix) {
+            const container = document.getElementById('matrix-container');
+            const table = document.createElement('table');
+            
+            matrix.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach(cell => {
+                    const td = document.createElement('td');
+                    td.textContent = cell;
+                    tr.appendChild(td);
+                });
+                table.appendChild(tr);
+            });
+
+            container.appendChild(table);
+        }
+
+        // Creazione e visualizzazione della matrice 8x8
+        const matrix = createMatrix(8, 8);
+        displayMatrix(matrix);
+    </script>
+</body>
+</html>
