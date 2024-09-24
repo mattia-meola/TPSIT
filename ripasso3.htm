@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore di Numeri Casuali</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 18px;
+        }
+        .pari { color: green; }
+        .dispari { color: red; }
+        .primo { color: blue; }
+        .box {
+            background-color: #f0f0f0;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Genera Due Numeri Casuali</h1>
+    <button id="genera-btn">Genera Numeri</button>
+    <div id="numero1" class="result"></div>
+    <div id="numero2" class="result"></div>
+    <div id="differenza" class="result box"></div> <!-- Aggiunto per mostrare la differenza -->
 
+    <script>
+        // Funzione per generare un numero casuale tra 1 e 100
+        function generaNumero() {
+            return Math.floor(Math.random() * 100) + 1;
+        }
+
+        // Funzione per controllare se il numero è primo
+        function ePrimo(numero) {
+            if (numero <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(numero); i++) {
+                if (numero % i === 0) return false;
+            }
+            return true;
+        }
+
+        // Funzione che gestisce la generazione e visualizzazione
+        function mostraNumeri() {
+            const num1 = generaNumero();
+            const num2 = generaNumero();
+           
+            const numero1Div = document.getElementById('numero1');
+            const numero2Div = document.getElementById('numero2');
+            const differenzaDiv = document.getElementById('differenza');
+
+            // Primo numero
+            numero1Div.textContent = `Numero 1: ${num1} (${num1 % 2 === 0 ? 'Pari' : 'Dispari'}, ${ePrimo(num1) ? 'Primo' : 'Non primo'})`;
+
+            // Secondo numero
+            numero2Div.textContent = `Numero 2: ${num2} (${num2 % 2 === 0 ? 'Pari' : 'Dispari'}, ${ePrimo(num2) ? 'Primo' : 'Non primo'})`;
+
+            // Calcola e visualizza la differenza
+            const differenza = Math.abs(num1 - num2); // Differenza assoluta
+            differenzaDiv.textContent = `La differenza tra i due numeri è: ${differenza}`;
+        }
+
+        // Aggiunge l'evento al bottone
+        document.getElementById('genera-btn').addEventListener('click', mostraNumeri);
+    </script>
+</body>
+</html>
