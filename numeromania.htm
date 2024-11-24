@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Numeromania</title>
     <style>
-        /* Stile di base per la pagina */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -120,18 +119,15 @@
     </style>
 </head>
 <body>
-
     <div class="contenitore-gioco">
         <h1>Numeromania</h1>
         <p>Divertiti con le operazioni matematiche!</p>
 
-        <!-- Sezione per inserire il nome utente -->
         <div id="area-nome-utente">
             <input type="text" id="nome-utente" placeholder="Inserisci il tuo nome" />
             <button id="inizia-gioco">Inizia il Gioco</button>
         </div>
 
-        <!-- Sezione di gioco (inizialmente nascosta) -->
         <div id="pulsante-gioco-avviato">
             <div id="informazioni-livello">
                 <p><strong>Nome: </strong><span id="nome-giocatore">?</span></p>
@@ -146,12 +142,10 @@
                 <p id="messaggio-risultato"></p>
             </div>
         </div>
-
     </div>
 
     <script>
-        // Attesa che il DOM sia caricato
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             let livello = 1;
             let sfidaCorrente;
             let rispostaCorretta;
@@ -159,9 +153,9 @@
             let intervalloTimer;
             let livelliNonCompletati = 0;
             let nomeUtente = '';
+            let numeriUsati = [];
 
-            // Evento per il pulsante "Inizia il Gioco"
-            document.getElementById('inizia-gioco').addEventListener('click', function() {
+            document.getElementById('inizia-gioco').addEventListener('click', function () {
                 nomeUtente = document.getElementById('nome-utente').value.trim();
 
                 if (nomeUtente) {
@@ -174,35 +168,36 @@
                 }
             });
 
-            // Funzione per iniziare un nuovo livello
-            function iniziaLivello(livello) {
-                document.getElementById('numero-livello').textContent = livello;
-                generaSfida(livello);
-                avviaTimer();
+            function generaNumero(min, max) {
+                let numero;
+                do {
+                    numero = Math.floor(Math.random() * (max - min + 1)) + min;
+                } while (numeriUsati.includes(numero));
+                numeriUsati.push(numero);
+                return numero;
             }
 
-            // Genera una sfida matematica in base al livello
             function generaSfida(livello) {
                 let num1, num2;
 
                 if (livello <= 5) {
-                    num1 = Math.floor(Math.random() * 50) + 10;
-                    num2 = Math.floor(Math.random() * 50) + 10;
+                    num1 = generaNumero(10, 50);
+                    num2 = generaNumero(10, 50);
                     rispostaCorretta = num1 + num2;
                     sfidaCorrente = `${num1} + ${num2}`;
                 } else if (livello <= 10) {
-                    num1 = Math.floor(Math.random() * 50) - 25;
-                    num2 = Math.floor(Math.random() * 50) - 25;
+                    num1 = generaNumero(-25, 25);
+                    num2 = generaNumero(-25, 25);
                     rispostaCorretta = num1 - num2;
                     sfidaCorrente = `${num1} - ${num2}`;
                 } else if (livello <= 15) {
-                    num1 = Math.floor(Math.random() * 20) + 5;
-                    num2 = Math.floor(Math.random() * 20) + 5;
+                    num1 = generaNumero(5, 20);
+                    num2 = generaNumero(5, 20);
                     rispostaCorretta = num1 * num2;
                     sfidaCorrente = `${num1} × ${num2}`;
                 } else {
-                    num1 = Math.floor(Math.random() * 200) + 50;
-                    num2 = Math.floor(Math.random() * 20) + 2;
+                    num1 = generaNumero(50, 200);
+                    num2 = generaNumero(2, 20);
                     rispostaCorretta = Math.floor(num1 / num2);
                     sfidaCorrente = `${num1} ÷ ${num2}`;
                 }
@@ -211,63 +206,47 @@
                 document.getElementById('messaggio-risultato').textContent = '';
             }
 
-            // Avvia il timer per il livello
+            function iniziaLivello(livello) {
+                document.getElementById('numero-livello').textContent = livello;
+                generaSfida(livello);
+                avviaTimer();
+            }
+
             function avviaTimer() {
-                tempoRimanente = 30;
-                clearInterval(intervalloTimer);
+                tempoRimanente = livello <= 5 ? 30 : livello <= 10 ? 25 : livello <= 15 ? 20 : 15;
                 document.getElementById('timer').textContent = tempoRimanente;
 
-                intervalloTimer = setInterval(() => {
+                intervalloTimer = setInterval(function () {
                     if (tempoRimanente > 0) {
                         tempoRimanente--;
                         document.getElementById('timer').textContent = tempoRimanente;
                     } else {
                         clearInterval(intervalloTimer);
-                        fineLivello(false);
+                        livelliNonCompletati++;
+                        livello++;
+                        livello <= 20 ? iniziaLivello(livello) : fineGioco();
                     }
                 }, 1000);
             }
 
-            // Fine livello
-            function fineLivello(corretta) {
-                if (corretta) {
-                    livello++;
-                } else {
-                    livelliNonCompletati++;
-                }
-
-                if (livello > 20) {
-                    fineGioco();
-                } else {
-                    setTimeout(() => iniziaLivello(livello), 2000);
-                }
-            }
-
-            // Gestione risposta del giocatore
-            document.getElementById('invia-risposta').addEventListener('click', function() {
-                const rispostaGiocatore = parseInt(document.getElementById('risposta-giocatore').value.trim(), 10);
+            document.getElementById('invia-risposta').addEventListener('click', function () {
+                const rispostaGiocatore = parseInt(document.getElementById('risposta-giocatore').value, 10);
 
                 if (rispostaGiocatore === rispostaCorretta) {
-                    document.getElementById('messaggio-risultato').textContent = 'Corretto! Avanzi al prossimo livello.';
                     clearInterval(intervalloTimer);
-                    fineLivello(true);
+                    livello++;
+                    livello <= 20 ? iniziaLivello(livello) : fineGioco();
                 } else {
-                    document.getElementById('messaggio-risultato').textContent = 'Risposta sbagliata! Ritenta.';
+                    document.getElementById('messaggio-risultato').textContent = 'Risposta sbagliata!';
                 }
             });
 
-            // Fine gioco
             function fineGioco() {
-                document.body.innerHTML = `
-                    <div class="fine-gioco">
-                        <h1>Gioco Finito!</h1>
-                        <p>Grazie per aver giocato, ${nomeUtente}!</p>
-                        <p>Livelli non completati: ${livelliNonCompletati}</p>
-                    </div>
-                `;
+                clearInterval(intervalloTimer);
+                alert(`Gioco terminato! Hai completato ${livello - 1} livelli.`);
+                location.reload();
             }
         });
     </script>
-
 </body>
 </html>
