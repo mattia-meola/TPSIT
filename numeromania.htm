@@ -227,4 +227,73 @@
 
                 // Aggiorna il testo della sfida
                 document.getElementById('sfida-operazione').textContent = sfidaCorrente;
-               
+                document.getElementById('messaggio-risultato').textContent = '';
+            }
+
+            // Avvia il timer del livello
+            function avviaTimer() {
+                if (intervalloTimer) clearInterval(intervalloTimer);
+
+                // Riduci il tempo disponibile in base alla difficoltà
+                if (livello <= 5) {
+                    tempoRimanente = 30;
+                } else if (livello <= 10) {
+                    tempoRimanente = 25;
+                } else if (livello <= 15) {
+                    tempoRimanente = 20;
+                } else {
+                    tempoRimanente = 15;
+                }
+
+                document.getElementById('timer').textContent = tempoRimanente;
+
+                // Riduzione graduale del tempo
+                intervalloTimer = setInterval(function() {
+                    if (tempoRimanente > 0) {
+                        tempoRimanente--;
+                        document.getElementById('timer').textContent = tempoRimanente;
+                    } else {
+                        clearInterval(intervalloTimer);
+                        document.getElementById('messaggio-risultato').textContent = 'Tempo scaduto!';
+                        document.getElementById('messaggio-risultato').style.color = 'red';
+                        livelliNonCompletati++;
+                        livello++;
+                        setTimeout(() => (livello <= 20 ? iniziaLivello(livello) : fineGioco()), 2000);
+                    }
+                }, 1000);
+            }
+
+            // Gestione risposta giocatore
+            document.getElementById('invia-risposta').addEventListener('click', function() {
+                const rispostaGiocatore = parseInt(document.getElementById('risposta-giocatore').value);
+
+                if (rispostaGiocatore === rispostaCorretta) {
+                    document.getElementById('messaggio-risultato').textContent = 'Bravo! Risposta corretta.';
+                    document.getElementById('messaggio-risultato').style.color = 'darkgreen';
+                    livello++;
+                } else {
+                    document.getElementById('messaggio-risultato').textContent = 'Risposta sbagliata. Passiamo al prossimo livello.';
+                    document.getElementById('messaggio-risultato').style.color = 'red';
+                    livelliNonCompletati++;
+                    livello++;
+                }
+
+                document.getElementById('risposta-giocatore').value = '';
+                setTimeout(() => (livello <= 20 ? iniziaLivello(livello) : fineGioco()), 2000);
+            });
+
+            // Funzione per terminare il gioco
+            function fineGioco() {
+                document.querySelector('.contenitore-gioco').innerHTML = `
+                    <h1 style="font-size: 100px; color: #ff6b6b;">FINE</h1>
+                    <p style="font-size: 24px;">Complimenti, ${nomeUtente}!</p>
+                    <p style="font-size: 20px;">Non hai superato ${livelliNonCompletati} livelli.</p>
+                    <p style="font-size: 18px;">Riprova per migliorare!</p>
+                    <button onclick="location.reload()" style="padding: 12px 25px; font-size: 18px;">Ricomincia</button>
+                `;
+            }
+        });
+    </script>
+
+</body>
+</html>
