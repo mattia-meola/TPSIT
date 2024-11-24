@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Numeromania</title> <!-- Titolo cambiato in "Numeromania" -->
+    <title>Numeromania</title>
     <style>
-        /* Reset di base per box model e margini */
+        /* Stile di base per la pagina */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        /* Stile generale del body per centrare il contenuto */
         body {
             font-family: 'Arial', sans-serif;
             display: flex;
@@ -23,7 +22,6 @@
             color: #fff;
         }
 
-        /* Stile della sezione contenitore del gioco */
         .contenitore-gioco {
             background-color: rgba(255, 255, 255, 0.1);
             padding: 40px;
@@ -35,7 +33,6 @@
             backdrop-filter: blur(10px);
         }
 
-        /* Titolo del gioco */
         h1 {
             font-size: 2.5em;
             font-weight: 700;
@@ -43,23 +40,19 @@
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
 
-        /* Sezione informazioni di livello e area sfida */
         #informazioni-livello, #area-sfida {
             margin-top: 20px;
         }
 
-        /* Stile delle informazioni di livello */
         #informazioni-livello {
             font-size: 1.2em;
         }
 
-        /* Stile del testo della sfida */
         #area-sfida p {
             font-size: 1.8em;
             font-weight: 600;
         }
 
-        /* Input per la risposta del giocatore */
         #risposta-giocatore {
             width: 100%;
             padding: 12px;
@@ -71,7 +64,6 @@
             color: #fff;
         }
 
-        /* Stile per i pulsanti di invio e inizio gioco */
         #invia-risposta, #inizia-gioco {
             width: 100%;
             padding: 15px;
@@ -86,18 +78,15 @@
             transition: background 0.3s;
         }
 
-        /* Effetto hover per i pulsanti */
         #invia-risposta:hover, #inizia-gioco:hover {
             background: #ffd60a;
         }
 
-        /* Messaggio risultato */
         #messaggio-risultato {
             font-size: 1.1em;
             margin-top: 10px;
         }
 
-        /* Timer visibile */
         #timer {
             font-size: 2em;
             font-weight: 700;
@@ -105,7 +94,6 @@
             margin-top: 15px;
         }
 
-        /* Stile per la fine del gioco */
         .fine-gioco h1 {
             font-size: 4em;
             color: #ff6b6b;
@@ -116,7 +104,6 @@
             margin-top: 15px;
         }
 
-        /* Input del nome utente */
         #nome-utente {
             padding: 12px;
             font-size: 1.2em;
@@ -127,7 +114,6 @@
             text-align: center;
         }
 
-        /* Pulsante nascosto per iniziare la sezione del gioco */
         #pulsante-gioco-avviato {
             display: none;
         }
@@ -136,7 +122,7 @@
 <body>
 
     <div class="contenitore-gioco">
-        <h1>Numeromania</h1> <!-- Aggiornamento del titolo del gioco -->
+        <h1>Numeromania</h1>
         <p>Divertiti con le operazioni matematiche!</p>
 
         <!-- Sezione per inserire il nome utente -->
@@ -164,8 +150,8 @@
     </div>
 
     <script>
+        // Attesa che il DOM sia caricato
         document.addEventListener("DOMContentLoaded", function() {
-            // Dichiarazione variabili principali per livello, tempo e nome
             let livello = 1;
             let sfidaCorrente;
             let rispostaCorretta;
@@ -174,12 +160,11 @@
             let livelliNonCompletati = 0;
             let nomeUtente = '';
 
-            // Inizia il gioco dopo aver inserito il nome
+            // Evento per il pulsante "Inizia il Gioco"
             document.getElementById('inizia-gioco').addEventListener('click', function() {
                 nomeUtente = document.getElementById('nome-utente').value.trim();
 
                 if (nomeUtente) {
-                    // Nascondi il form del nome e mostra il gioco
                     document.getElementById('area-nome-utente').style.display = 'none';
                     document.getElementById('pulsante-gioco-avviato').style.display = 'block';
                     document.getElementById('nome-giocatore').textContent = nomeUtente;
@@ -189,20 +174,17 @@
                 }
             });
 
-            // Funzione per iniziare un livello
+            // Funzione per iniziare un nuovo livello
             function iniziaLivello(livello) {
-                // Imposta il livello attuale e il tempo disponibile
                 document.getElementById('numero-livello').textContent = livello;
-                document.getElementById('timer').textContent = tempoRimanente;
-                generaSfida(livello); // Genera una nuova sfida
-                avviaTimer(); // Avvia il timer
+                generaSfida(livello);
+                avviaTimer();
             }
 
-            // Genera una sfida in base al livello
+            // Genera una sfida matematica in base al livello
             function generaSfida(livello) {
                 let num1, num2;
 
-                // Differenziazione della difficoltà per i livelli
                 if (livello <= 5) {
                     num1 = Math.floor(Math.random() * 50) + 10;
                     num2 = Math.floor(Math.random() * 50) + 10;
@@ -217,79 +199,71 @@
                     num1 = Math.floor(Math.random() * 20) + 5;
                     num2 = Math.floor(Math.random() * 20) + 5;
                     rispostaCorretta = num1 * num2;
-                    sfidaCorrente = `${num1} x ${num2}`;
+                    sfidaCorrente = `${num1} × ${num2}`;
                 } else {
                     num1 = Math.floor(Math.random() * 200) + 50;
                     num2 = Math.floor(Math.random() * 20) + 2;
                     rispostaCorretta = Math.floor(num1 / num2);
-                    sfidaCorrente = `${num1} / ${num2}`;
+                    sfidaCorrente = `${num1} ÷ ${num2}`;
                 }
 
-                // Aggiorna il testo della sfida
                 document.getElementById('sfida-operazione').textContent = sfidaCorrente;
                 document.getElementById('messaggio-risultato').textContent = '';
             }
 
-            // Avvia il timer del livello
+            // Avvia il timer per il livello
             function avviaTimer() {
-                if (intervalloTimer) clearInterval(intervalloTimer);
-
-                // Riduci il tempo disponibile in base alla difficoltà
-                if (livello <= 5) {
-                    tempoRimanente = 30;
-                } else if (livello <= 10) {
-                    tempoRimanente = 25;
-                } else if (livello <= 15) {
-                    tempoRimanente = 20;
-                } else {
-                    tempoRimanente = 15;
-                }
-
+                tempoRimanente = 30;
+                clearInterval(intervalloTimer);
                 document.getElementById('timer').textContent = tempoRimanente;
 
-                // Riduzione graduale del tempo
-                intervalloTimer = setInterval(function() {
+                intervalloTimer = setInterval(() => {
                     if (tempoRimanente > 0) {
                         tempoRimanente--;
                         document.getElementById('timer').textContent = tempoRimanente;
                     } else {
                         clearInterval(intervalloTimer);
-                        document.getElementById('messaggio-risultato').textContent = 'Tempo scaduto!';
-                        document.getElementById('messaggio-risultato').style.color = 'red';
-                        livelliNonCompletati++;
-                        livello++;
-                        setTimeout(() => (livello <= 20 ? iniziaLivello(livello) : fineGioco()), 2000);
+                        fineLivello(false);
                     }
                 }, 1000);
             }
 
-            // Gestione risposta giocatore
-            document.getElementById('invia-risposta').addEventListener('click', function() {
-                const rispostaGiocatore = parseInt(document.getElementById('risposta-giocatore').value);
-
-                if (rispostaGiocatore === rispostaCorretta) {
-                    document.getElementById('messaggio-risultato').textContent = 'Bravo! Risposta corretta.';
-                    document.getElementById('messaggio-risultato').style.color = 'darkgreen';
+            // Fine livello
+            function fineLivello(corretta) {
+                if (corretta) {
                     livello++;
                 } else {
-                    document.getElementById('messaggio-risultato').textContent = 'Risposta sbagliata. Passiamo al prossimo livello.';
-                    document.getElementById('messaggio-risultato').style.color = 'red';
                     livelliNonCompletati++;
-                    livello++;
                 }
 
-                document.getElementById('risposta-giocatore').value = '';
-                setTimeout(() => (livello <= 20 ? iniziaLivello(livello) : fineGioco()), 2000);
+                if (livello > 20) {
+                    fineGioco();
+                } else {
+                    setTimeout(() => iniziaLivello(livello), 2000);
+                }
+            }
+
+            // Gestione risposta del giocatore
+            document.getElementById('invia-risposta').addEventListener('click', function() {
+                const rispostaGiocatore = parseInt(document.getElementById('risposta-giocatore').value.trim(), 10);
+
+                if (rispostaGiocatore === rispostaCorretta) {
+                    document.getElementById('messaggio-risultato').textContent = 'Corretto! Avanzi al prossimo livello.';
+                    clearInterval(intervalloTimer);
+                    fineLivello(true);
+                } else {
+                    document.getElementById('messaggio-risultato').textContent = 'Risposta sbagliata! Ritenta.';
+                }
             });
 
-            // Funzione per terminare il gioco
+            // Fine gioco
             function fineGioco() {
-                document.querySelector('.contenitore-gioco').innerHTML = `
-                    <h1 style="font-size: 100px; color: #ff6b6b;">FINE</h1>
-                    <p style="font-size: 24px;">Complimenti, ${nomeUtente}!</p>
-                    <p style="font-size: 20px;">Non hai superato ${livelliNonCompletati} livelli.</p>
-                    <p style="font-size: 18px;">Riprova per migliorare!</p>
-                    <button onclick="location.reload()" style="padding: 12px 25px; font-size: 18px;">Ricomincia</button>
+                document.body.innerHTML = `
+                    <div class="fine-gioco">
+                        <h1>Gioco Finito!</h1>
+                        <p>Grazie per aver giocato, ${nomeUtente}!</p>
+                        <p>Livelli non completati: ${livelliNonCompletati}</p>
+                    </div>
                 `;
             }
         });
