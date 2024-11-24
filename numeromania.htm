@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numeromania</title> <!-- Titolo cambiato in "Numeromania" -->
+    <style>
+        /* Reset di base per box model e margini */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Stile generale del body per centrare il contenuto */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #a664ee 0%, #2575fc 100%);
+            color: #fff;
+        }
+
+        /* Stile della sezione contenitore del gioco */
+        .contenitore-gioco {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Titolo del gioco */
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #ffe53b;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Sezione informazioni di livello e area sfida */
+        #informazioni-livello, #area-sfida {
+            margin-top: 20px;
+        }
+
+        /* Stile delle informazioni di livello */
+        #informazioni-livello {
+            font-size: 1.2em;
+        }
+
+        /* Stile del testo della sfida */
+        #area-sfida p {
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        /* Input per la risposta del giocatore */
+        #risposta-giocatore {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1em;
+            margin-top: 10px;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        /* Stile per i pulsanti di invio e inizio gioco */
+        #invia-risposta, #inizia-gioco {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            margin-top: 15px;
+            background: #ffe53b;
+            color: #333;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        /* Effetto hover per i pulsanti */
+        #invia-risposta:hover, #inizia-gioco:hover {
+            background: #ffd60a;
+        }
+
+        /* Messaggio risultato */
+        #messaggio-risultato {
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        /* Timer visibile */
+        #timer {
+            font-size: 2em;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-top: 15px;
+        }
+
+        /* Stile per la fine del gioco */
+        .fine-gioco h1 {
+            font-size: 4em;
+            color: #ff6b6b;
+        }
+
+        .fine-gioco p {
+            font-size: 1.3em;
+            margin-top: 15px;
+        }
+
+        /* Input del nome utente */
+        #nome-utente {
+            padding: 12px;
+            font-size: 1.2em;
+            margin-top: 10px;
+            width: 80%;
+            border-radius: 8px;
+            border: none;
+            text-align: center;
+        }
+
+        /* Pulsante nascosto per iniziare la sezione del gioco */
+        #pulsante-gioco-avviato {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenitore-gioco">
+        <h1>Numeromania</h1> <!-- Aggiornamento del titolo del gioco -->
+        <p>Divertiti con le operazioni matematiche!</p>
+
+        <!-- Sezione per inserire il nome utente -->
+        <div id="area-nome-utente">
+            <input type="text" id="nome-utente" placeholder="Inserisci il tuo nome" />
+            <button id="inizia-gioco">Inizia il Gioco</button>
+        </div>
+
+        <!-- Sezione di gioco (inizialmente nascosta) -->
+        <div id="pulsante-gioco-avviato">
+            <div id="informazioni-livello">
+                <p><strong>Nome: </strong><span id="nome-giocatore">?</span></p>
+                <p><strong>Livello: </strong><span id="numero-livello">1</span></p>
+                <p><strong>Tempo: </strong><span id="timer">30</span> secondi</p>
+            </div>
+
+            <div id="area-sfida">
+                <p>Quanto fa <span id="sfida-operazione"></span>?</p>
+                <input type="number" id="risposta-giocatore" placeholder="Rispondi qui">
+                <button id="invia-risposta">Invia risposta</button>
+                <p id="messaggio-risultato"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Dichiarazione variabili principali per livello, tempo e nome
+            let livello = 1;
+            let sfidaCorrente;
+            let rispostaCorretta;
+            let tempoRimanente = 30;
+            let intervalloTimer;
+            let livelliNonCompletati = 0;
+            let nomeUtente = '';
+
+            // Inizia il gioco dopo aver inserito il nome
+            document.getElementById('inizia-gioco').addEventListener('click', function() {
+                nomeUtente = document.getElementById('nome-utente').value.trim();
+
+                if (nomeUtente) {
+                    // Nascondi il form del nome e mostra il gioco
+                    document.getElementById('area-nome-utente').style.display = 'none';
+                    document.getElementById('pulsante-gioco-avviato').style.display = 'block';
+                    document.getElementById('nome-giocatore').textContent = nomeUtente;
+                    iniziaLivello(livello);
+                } else {
+                    alert("Per favore, inserisci il tuo nome!");
+                }
+            });
+
+            // Funzione per iniziare un livello
+            function iniziaLivello(livello) {
+                // Imposta il livello attuale e il tempo disponibile
+                document.getElementById('numero-livello').textContent = livello;
+                document.getElementById('timer').textContent = tempoRimanente;
+                generaSfida(livello); // Genera una nuova sfida
+                avviaTimer(); // Avvia il timer
+            }
+
+            // Genera una sfida in base al livello
+            function generaSfida(livello) {
+                let num1, num2;
+
+                // Differenziazione della difficoltà per i livelli
+                if (livello <= 5) {
+                    num1 = Math.floor(Math.random() * 50) + 10;
+                    num2 = Math.floor(Math.random() * 50) + 10;
+                    rispostaCorretta = num1 + num2;
+                    sfidaCorrente = `${num1} + ${num2}`;
+                } else if (livello <= 10) {
+                    num1 = Math.floor(Math.random() * 50) - 25;
+                    num2 = Math.floor(Math.random() * 50) - 25;
+                    rispostaCorretta = num1 - num2;
+                    sfidaCorrente = `${num1} - ${num2}`;
+                } else if (livello <= 15) {
+                    num1 = Math.floor(Math.random() * 20) + 5;
+                    num2 = Math.floor(Math.random() * 20) + 5;
+                    rispostaCorretta = num1 * num2;
+                    sfidaCorrente = `${num1} x ${num2}`;
+                } else {
+                    num1 = Math.floor(Math.random() * 200) + 50;
+                    num2 = Math.floor(Math.random() * 20) + 2;
+                    rispostaCorretta = Math.floor(num1 / num2);
+                    sfidaCorrente = `${num1} / ${num2}`;
+                }
+
+                // Aggiorna il testo della sfida
+                document.getElementById('sfida-operazione').textContent = sfidaCorrente;
+               
