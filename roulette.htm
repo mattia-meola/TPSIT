@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulazione Estrazione</title>
+    <style>
+        .selected { background-color: #4CAF50; color: white; }
+        .button-container { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Simulazione Estrazione</h1>
+    
+    <!-- Bottoni Toggle -->
+    <button id="pari" class="toggle-button">Pari</button>
+    <button id="dispari" class="toggle-button">Dispari</button>
+
+    <!-- Decina e Puntata Fissa -->
+    <div class="button-container">
+        <label for="decina">Decina:</label>
+        <select id="decina">
+            <option value="0-10">0-10</option>
+            <option value="11-20">11-20</option>
+            <option value="21-30">21-30</option>
+            <option value="31-40">31-40</option>
+            <option value="41-50">41-50</option>
+            <option value="51-60">51-60</option>
+            <option value="61-70">61-70</option>
+            <option value="71-80">71-80</option>
+            <option value="81-90">81-90</option>
+        </select>
+    </div>
+
+    <div class="button-container">
+        <label for="puntata">Puntata fissa:</label>
+        <input type="number" id="puntata" min="1" max="90">
+    </div>
+
+    <!-- Bottone per iniziare la simulazione -->
+    <button id="startButton">Inizia Estrazione</button>
+
+    <!-- Visualizzazione estrazioni e vincite -->
+    <h2>Estrazione Numeri</h2>
+    <p id="estrazione">Nessuna estrazione in corso...</p>
+    <p id="vincite">Vincite: 0</p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const startButton = document.getElementById('startButton');
+            const estrazioneDisplay = document.getElementById('estrazione');
+            const vinciteDisplay = document.getElementById('vincite');
+            const pariButton = document.getElementById('pari');
+            const dispariButton = document.getElementById('dispari');
+            const decinaSelect = document.getElementById('decina');
+            const puntataInput = document.getElementById('puntata');
+
+            let estrazioni = [];
+            let vincite = 0;
+            let numEstrazioni = 0;
+
+            const toggleButton = (button) => {
+                button.classList.toggle('selected');
+            };
+
+            const generateRandomNumber = () => Math.floor(Math.random() * 90) + 1;
+
+            const saveToCsv = () => {
+                const csvData = estrazioni.join("\n");
+                const blob = new Blob([csvData], { type: 'text/csv' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'estrazioni.csv';
+                link.click();
+            };
+
+            const saveToJson = () => {
+                const jsonData = JSON.stringify(estrazioni);
+                const blob = new Blob([jsonData], { type: 'application/json' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'estrazioni.json';
+                link.click();
+            };
+
+            const checkVincita = (estratto) => {
+                const isPari = estratto % 2 === 0;
+                const isDispari = !isPari;
+                const decinaValue = decinaSelect.value;
+                const decinaRange = decinaValue.split('-').map(Number);
+                const isDecina = estratto >= decinaRange[0] && estratto <= decinaRange[1];
+                const puntataValue = parseInt(puntataInput.value);
+
+                if ((pariButton.classList.contains('selected') && isPari) ||
+                    (dispariButton.classList.contains('selected') && isDispari) ||
+                    (isDecina && decinaSelect.classList.contains('selected')) ||
+                    (puntataValue === estratto)) {
+                    vincite++;
+                }
+            };
+
+            startButton.addEventListener('click', () => {
+                numEstrazioni++;
+                const estratto = generateRandomNumber();
+                estrazioni.push(estratto);
+
+                estrazioneDisplay.textContent = `Numero estratto: ${estratto}`;
+                checkVincita(estratto);
+
+                vinciteDisplay.textContent = `Vincite: ${vincite}`;
+                
+                // Calcolare la probabilità empirica delle vincite
+                if (numEstrazioni >= 1000) {
+                    const probabilitaVincite = vincite / numEstrazioni;
+                    console.log(`Probabilità di vincita dopo ${numEstrazioni} estrazioni: ${probabilitaVincite}`);
+                }
+
+                if (numEstrazioni >= 10000) {
+                    saveToCsv();
+                    saveToJson();
+                }
+            });
+
+            pariButton.addEventListener('click', () => toggleButton(pariButton));
+            dispariButton.addEventListener('click', () => toggleButton(dispariButton));
+        });
+    </script>
+</body>
+</html>
