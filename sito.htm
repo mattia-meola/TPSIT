@@ -1,0 +1,434 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Aware - La tua guida alla sicurezza informatica</title>
+    <style>
+        /* Generali */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            background-color: #f9f9f9;
+            color: #333;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+
+        /* Header e Navbar */
+        header {
+            background: #1d3557;
+            color: #fff;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header .logo {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        nav .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav .menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav .menu li a:hover {
+            color: #a8dadc;
+        }
+
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(rgba(29, 53, 87, 0.8), rgba(29, 53, 87, 0.8)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 120px 20px;
+            transition: padding 0.3s ease;
+        }
+
+        #hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        #hero p {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+        #hero .cta-btn {
+            display: inline-block;
+            background: #457b9d;
+            color: #fff;
+            padding: 15px 30px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: background 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #hero .cta-btn:hover {
+            background: #1d3557;
+        }
+
+        /* Features Section */
+        #features {
+            display: flex;
+            justify-content: space-around;
+            padding: 60px 20px;
+            background: #fff;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 30%;
+            min-width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .card .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #457b9d;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .card .btn:hover {
+            background: #1d3557;
+        }
+
+        /* Home Description Section */
+        #home-description {
+            padding: 60px 20px;
+            text-align: center;
+            background: #f4f4f4;
+        }
+
+        #home-description h2 {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            color: #1d3557;
+        }
+
+        #home-description p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        #home-description .cta-btn {
+            background: #457b9d;
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        #home-description .cta-btn:hover {
+            background: #1d3557;
+        }
+
+        /* New Articles Section */
+        #new-articles {
+            padding: 60px 20px;
+            background: #fff;
+            text-align: center;
+        }
+
+        #new-articles h2 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            color: #1d3557;
+        }
+
+        .articles {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .article {
+            width: 30%;
+            background: #f4f4f4;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .article-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .article h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .article p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .read-more-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #457b9d;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background: #1d3557;
+        }
+
+        /* Footer */
+        footer {
+            background: #1d3557;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: #a8dadc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Newsletter Section */
+        #newsletter {
+            background: #457b9d;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        #newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        #newsletter p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        #newsletter input[type="email"] {
+            padding: 10px;
+            width: 300px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+
+        #newsletter button {
+            padding: 10px 20px;
+            background: #1d3557;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        #newsletter button:hover {
+            background: #457b9d;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            #features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 90%;
+                margin-bottom: 20px;
+            }
+
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+
+            #hero p {
+                font-size: 1.2rem;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: start;
+            }
+
+            nav .menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Cyber Aware</div>
+        <nav>
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="minacce.html">Minacce</a></li>
+                <li><a href="sicurezza.html">Sicurezza</a></li>
+                <li><a href="risorse.html">Risorse Educative</a></li>
+                <li><a href="contatti.html">Contatti</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Benvenuto su Cyber Aware</h1>
+            <p>La tua guida per scoprire, prevenire e affrontare le minacce informatiche.</p>
+            <a href="minacce.html" class="cta-btn">Esplora le Minacce</a>
+        </section>
+
+        <section id="features">
+            <div class="card" style="background-image: url('https://images.unsplash.com/photo-1529101091764-c3526daf38fe?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center;">
+                <h2>Minacce</h2>
+                <p>Conosci i principali pericoli digitali come virus, phishing e attacchi hacker.</p>
+                <a href="minacce.html" class="btn">Scopri di più</a>
+            </div>
+            <div class="card" style="background-image: url('https://plus.unsplash.com/premium_photo-1700830328095-26c5a1c053b8?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center;">
+                <h2>Sicurezza</h2>
+                <p>Proteggi i tuoi dati con strumenti affidabili e pratiche consigliate.</p>
+                <a href="sicurezza.html" class="btn">Scopri di più</a>
+            </div>
+            <div class="card" style="background-image: url('https://plus.unsplash.com/premium_photo-1669652639356-f5cb1a086976?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center;">
+                <h2>Risorse Educative</h2>
+                <p>Espandi le tue conoscenze con corsi e guide dettagliate.</p>
+                <a href="risorse.html" class="btn">Scopri di più</a>
+            </div>
+        </section>
+
+        <section id="home-description">
+            <h2>Cyber Aware: Il tuo compagno nella sicurezza digitale</h2>
+            <p>Con l'evoluzione delle tecnologie, è essenziale essere consapevoli delle minacce che ci circondano. Cyber Aware offre risorse per aiutarti a capire e proteggere te stesso dai rischi digitali.</p>
+            <a href="risorse.html" class="cta-btn">Inizia Ora</a>
+        </section>
+
+        <section id="new-articles">
+            <h2>Articoli Recenti</h2>
+            <div class="articles">
+                <div class="article">
+                    <img src="https://images.unsplash.com/photo-1516234783987-d440df45e5fd?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Article Image" class="article-img">
+                    <h3>Cos'è il Phishing e come difendersi</h3>
+                    <p>Scopri cos'è il phishing, come riconoscerlo e cosa fare per evitarlo.</p>
+                    <a href="articolo-phishing.html" class="read-more-btn">Leggi di più</a>
+                </div>
+                <div class="article">
+                    <img src="https://images.unsplash.com/photo-1585645757814-0bbd7c6e68c1?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Article Image" class="article-img">
+                    <h3>Le migliori pratiche per proteggere il tuo Wi-Fi</h3>
+                    <p>Scopri come mantenere sicuro il tuo router Wi-Fi e proteggere la tua rete domestica.</p>
+                    <a href="articolo-wifi.html" class="read-more-btn">Leggi di più</a>
+                </div>
+                <div class="article">
+                    <img src="https://images.unsplash.com/photo-1622751363638-9e9a1b980b32?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Article Image" class="article-img">
+                    <h3>Come evitare i virus informatici</h3>
+                    <p>Leggi i nostri consigli su come proteggerti dai virus e malware più comuni.</p>
+                    <a href="articolo-virus.html" class="read-more-btn">Leggi di più</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="newsletter">
+            <h2>Iscriviti alla nostra Newsletter</h2>
+            <p>Ricevi aggiornamenti sulle ultime minacce e consigli di sicurezza direttamente nella tua casella di posta.</p>
+            <form>
+                <input type="email" placeholder="Inserisci la tua email" required>
+                <button type="submit">Iscriviti</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Cyber Aware. Tutti i diritti riservati. <a href="#">Privacy Policy</a> | <a href="#">Termini di servizio</a></p>
+    </footer>
+</body>
+</html>
