@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8"/>
+    <title> Terza prova </title>
+    <meta name="description" content="Pagina prova prompt document write"/>
+    <meta name="author" content="Meola Mattia"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore BMI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #fff;
+        }
+        .container {
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        input, button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 90%;
+            border: none;
+            border-radius: 5px;
+        }
+        input {
+            background: #fff;
+            color: #000;
+        }
+        button {
+            background: #ff9800;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calcolatore BMI</h2>
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso" required><br>
+        <label for="altezza">Altezza (m):</label>
+        <input type="number" step="0.01" id="altezza" required><br>
+        <button onclick="calcolaBMI()">Calcola</button>
+    </div>
+    <script>
+        function calcolaBMI() {
+            let peso = parseFloat(document.getElementById('peso').value);
+            let altezza = parseFloat(document.getElementById('altezza').value);
+            if (!peso || !altezza) {
+                alert("Inserisci valori validi");
+                return;
+            }
+            let bmi = peso / (altezza * altezza);
+            if (bmi < 18) {
+                window.location.href = 'basso.html?bmi=' + bmi.toFixed(2);
+            } else if (bmi >= 18 && bmi <= 25) {
+                window.location.href = 'normale.html?bmi=' + bmi.toFixed(2);
+            } else if (bmi > 25 && bmi <= 50) {
+                window.location.href = 'alto.html?bmi=' + bmi.toFixed(2);
+            } else {
+                window.location.href = 'super_obeso.html?bmi=' + bmi.toFixed(2);
+            }
+        }
+    </script>
+</body>
+</html>
