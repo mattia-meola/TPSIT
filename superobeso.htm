@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8"/>
+    <title>Super Obeso</title>
+    <meta name="description" content="Risultato BMI Super Obeso"/>
+    <meta name="author" content="Meola Mattia"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: linear-gradient(to right, #ff0000, #660000);
+            color: #fff;
+        }
+        .container {
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        img {
+            width: 200px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Il tuo BMI è Super Obeso!</h2>
+        <p>Il tuo indice di massa corporea è: <span id="bmiValue"></span></p>
+        <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ5l5Vki4hWaaaDM_jz7_4YakA0z0D2lTy3OjM6KBXUNGi87QD2TQrHM1xwMwFI-XmWrtSJwMUzxHuxRmNdGl9Ddg" alt="Dottor Nowzaradan">
+        <br>
+        <a href="https://mattia-meola.github.io/TPSIT/bmi.htm" style="color: #ffcc00;">Torna indietro</a>
+    </div>
+    <script>
+        let params = new URLSearchParams(window.location.search);
+        document.getElementById("bmiValue").innerText = params.get("bmi");
+    </script>
+</body>
+</html>
