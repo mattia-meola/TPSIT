@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8"/>
+    <title>BMI Alto</title>
+    <meta name="description" content="Risultato BMI Alto"/>
+    <meta name="author" content="Meola mattia"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: linear-gradient(to right, #ffcc00, #ff6600);
+            color: #fff;
+        }
+        .container {
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        img {
+            width: 200px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Il tuo BMI è alto!</h2>
+        <p>Il tuo indice di massa corporea è: <span id="bmiValue"></span></p>
+        <img src="https://assets.onecompiler.app/42wj3nfmu/437mumd6b/DALL%C2%B7E%202025-01-30%2023.03.20%20-%20A%20comic%20character%20with%20a%20very%20large%20and%20overweight%20body,%20wearing%20casual%20clothes,%20standing%20with%20a%20cheerful%20expression.%20The%20character%20should%20have%20exagge.webp" alt="Personaggio molto grasso">
+        <br>
+        <a href="https://mattia-meola.github.io/TPSIT/bmi.htm" style="color: #ffcc00;">Torna indietro</a>
+    </div>
+    <script>
+        let params = new URLSearchParams(window.location.search);
+        document.getElementById("bmiValue").innerText = params.get("bmi");
+    </script>
+</body>
+</html>
